@@ -6,7 +6,7 @@ const { check, validationResult } = require("express-validator");
 router.get("/all", (req, res) => {
   //res.send("Persons get route");
   Person.find()
-    .then((persons) => res.json({ persons: persons }))
+    .then((persons) => res.json(persons))
     .catch((err) => {
       console.log(err.message);
       res.status(500).send("Server Error");

@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import PersonContext from "../context/personContext";
 
 const PersonForm = () => {
+  const personContext = useContext(PersonContext);
+
+  const { addPerson, persons } = personContext;
   const [person, setPerson] = useState({
     firstname: "",
     lastname: "",
@@ -18,7 +22,8 @@ const PersonForm = () => {
       firstname,
       lastname,
     };
-    console.log(newPerson);
+    //console.log(newPerson);
+    addPerson(newPerson);
     setPerson({
       firstname: "",
       lastname: "",

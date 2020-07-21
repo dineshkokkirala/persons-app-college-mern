@@ -2,19 +2,22 @@ import React from "react";
 import "./App.css";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
+import PersonState from "./context/PersonState";
 
 function App() {
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-6">
-          <PersonForm />
-        </div>
-        <div className="col-md-6">
-          <Persons />
+    <PersonState>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-6">
+            <PersonForm />
+          </div>
+          <div className="col-md-6">
+            <Persons />
+          </div>
         </div>
       </div>
-    </div>
+    </PersonState>
   );
 }
 

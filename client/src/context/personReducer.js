@@ -12,11 +12,17 @@ export default (state, action) => {
       return {
         ...state,
         persons: action.payload,
+        loading: true,
       };
     case PERSON_ERROR:
       return {
         ...state,
         error: action.payload,
+      };
+    case ADD_PERSON:
+      return {
+        ...state,
+        persons: [action.payload, ...state.persons],
       };
     default:
       return state;
