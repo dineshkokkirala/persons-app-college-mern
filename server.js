@@ -9,7 +9,7 @@ app.use(express.json({}));
 
 app.use("/api/person", require("./routes/person"));
 
-app.get("/", (req, res) => res.send("Dinesh from Server"));
+// app.get("/", (req, res) => res.send("Dinesh from Server"));
 
 const PORT = 5000;
 
