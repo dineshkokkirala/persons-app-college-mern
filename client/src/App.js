@@ -7,7 +7,7 @@ import PersonState from "./context/PersonState";
 function App() {
   return (
     <PersonState>
-      <div className="container">
+      <div className="container mt-4">
         <div className="row">
           <div className="col-md-6">
             <PersonForm />

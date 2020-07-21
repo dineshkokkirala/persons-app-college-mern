@@ -1,16 +1,35 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import PersonContext from "../context/personContext";
 
 const PersonForm = () => {
   const personContext = useContext(PersonContext);
 
-  const { addPerson, persons } = personContext;
+  const {
+    addPerson,
+
+    current,
+    updatePerson,
+    clearCurrent,
+  } = personContext;
+
+  useEffect(() => {
+    if (current !== null) {
+      setPerson(current);
+    } else {
+      setPerson({
+        firstname: "",
+        lastname: "",
+        errors: {},
+      });
+    }
+  }, [personContext, current]);
+
   const [person, setPerson] = useState({
     firstname: "",
     lastname: "",
     errors: {},
   });
-  const { firstname, lastname, errors } = person;
+  const { firstname, lastname } = person;
 
   const onChange = (e) => {
     setPerson({ ...person, [e.target.name]: e.target.value });
@@ -18,12 +37,17 @@ const PersonForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const newPerson = {
-      firstname,
-      lastname,
-    };
+    // const newPerson = {
+    //   firstname,
+    //   lastname,
+    // };
     //console.log(newPerson);
-    addPerson(newPerson);
+    if (current === null) {
+      addPerson(person);
+    } else {
+      updatePerson(person);
+      personContext.clearCurrent();
+    }
     setPerson({
       firstname: "",
       lastname: "",
@@ -33,7 +57,7 @@ const PersonForm = () => {
 
   return (
     <div>
-      <h1>Add a Person to List</h1>
+      <h1>{current === null ? "Add a Person" : "Edit Person"}</h1>
       <form onSubmit={onSubmit}>
         <div className="form-group">
           <label htmlFor="firstname">FirstName</label>
@@ -58,7 +82,16 @@ const PersonForm = () => {
           />
         </div>
 
-        <button className="btn btn-success">Submit</button>
+        <button className="btn btn-success btn-block">
+          {current === null ? "Add" : "Update"}
+        </button>
+        {current && (
+          <div className="mt-4">
+            <button onClick={clearCurrent} className="btn btn-light btn-block">
+              Clear
+            </button>
+          </div>
+        )}
       </form>
     </div>
   );

@@ -5,7 +5,7 @@ import PersonContext from "../context/personContext";
 const Persons = () => {
   const personContext = useContext(PersonContext);
 
-  const { getPersons, persons, loading } = personContext;
+  const { getPersons, persons } = personContext;
 
   useEffect(() => {
     getPersons();

@@ -4,6 +4,8 @@ import {
   DELETE_PERSON,
   UPDATE_PERSON,
   PERSON_ERROR,
+  SET_CURRENT,
+  CLEAR_CURRENT,
 } from "./types";
 
 export default (state, action) => {
@@ -31,6 +33,24 @@ export default (state, action) => {
           (person) => person._id !== action.payload
         ),
       };
+    case SET_CURRENT:
+      return {
+        ...state,
+        current: action.payload,
+      };
+    case CLEAR_CURRENT:
+      return {
+        ...state,
+        current: null,
+      };
+    case UPDATE_PERSON:
+      return {
+        ...state,
+        persons: state.persons.map((person) =>
+          person._id === action.payload._id ? action.payload : person
+        ),
+      };
+
     default:
       return state;
   }

@@ -1,0 +1,3 @@
+{
+  "mongoURI": "mongodb+srv://dinesh:Vishnu123$@personsdb.fb3sv.mongodb.net/persondb?retryWrites=true&w=majority"
+}

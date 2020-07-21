@@ -8,6 +8,8 @@ import {
   DELETE_PERSON,
   UPDATE_PERSON,
   PERSON_ERROR,
+  SET_CURRENT,
+  CLEAR_CURRENT,
 } from "./types";
 
 const PersonState = (props) => {
@@ -16,6 +18,7 @@ const PersonState = (props) => {
     error: null,
     filtered: null,
     loading: false,
+    current: null,
   };
 
   const [state, dispatch] = useReducer(personReducer, initialState);
@@ -70,15 +73,53 @@ const PersonState = (props) => {
     }
   };
 
+  const setCurrent = (person) => {
+    dispatch({
+      type: SET_CURRENT,
+      payload: person,
+    });
+  };
+
+  const clearCurrent = (person) => {
+    dispatch({
+      type: CLEAR_CURRENT,
+    });
+  };
+
+  const updatePerson = async (person) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const res = await axios.put(`/api/person/${person._id}`, person, config);
+      dispatch({
+        type: UPDATE_PERSON,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: PERSON_ERROR,
+        payload: err.response.data,
+      });
+    }
+  };
+
   return (
     <PersonContext.Provider
       value={{
         persons: state.persons,
         filtered: state.filtered,
         error: state.error,
+        current: state.current,
         getPersons,
         addPerson,
         deletePerson,
+        updatePerson,
+        setCurrent,
+        clearCurrent,
       }}
     >
       {props.children}
