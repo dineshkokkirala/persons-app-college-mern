@@ -55,6 +55,21 @@ const PersonState = (props) => {
     }
   };
 
+  const deletePerson = async (id) => {
+    try {
+      await axios.delete(`/api/person/${id}`);
+      dispatch({
+        type: DELETE_PERSON,
+        payload: id,
+      });
+    } catch (err) {
+      dispatch({
+        type: PERSON_ERROR,
+        payload: err.response.data,
+      });
+    }
+  };
+
   return (
     <PersonContext.Provider
       value={{
@@ -63,6 +78,7 @@ const PersonState = (props) => {
         error: state.error,
         getPersons,
         addPerson,
+        deletePerson,
       }}
     >
       {props.children}

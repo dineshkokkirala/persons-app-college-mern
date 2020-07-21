@@ -44,6 +44,7 @@ const PersonForm = () => {
             name="firstname"
             value={firstname}
             className="form-control"
+            required
           />
           <label htmlFor="lastname">LastName</label>
           <input
@@ -53,6 +54,7 @@ const PersonForm = () => {
             name="lastname"
             value={lastname}
             className="form-control"
+            required
           />
         </div>
 

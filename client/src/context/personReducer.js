@@ -24,6 +24,13 @@ export default (state, action) => {
         ...state,
         persons: [action.payload, ...state.persons],
       };
+    case DELETE_PERSON:
+      return {
+        ...state,
+        persons: state.persons.filter(
+          (person) => person._id !== action.payload
+        ),
+      };
     default:
       return state;
   }
